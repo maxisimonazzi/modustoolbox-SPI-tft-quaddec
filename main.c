@@ -19,7 +19,7 @@ const SPI_st7789v_pins_t tft_pins =
 
 int x = 125; // coordenada incial x
 int y = 125; // coordenada inicial y
-int a = 5; // variable de ajueste (grueso, medio, fino)
+int a = 5; // variable de ajuste (grueso, medio, fino)
 int tc = 2; // tamaño del circulo
 int limxizquierda = 20;
 int limitexderecha = 220;
@@ -39,7 +39,7 @@ int main(void)
 
    cyhal_quaddec_t objdetquad_H; //Declaro objetos para detector de posicion H y V
    cyhal_quaddec_t objdetquad_V;
-   uint32_t cuentah = 0x1000, previah = 0x1000; //Declaro variables para contar posicion
+   uint32_t cuentah = 0x1000, previah = 0x1000; //Declaro variables para contar posición
    uint32_t cuentav = 0x1000, previav = 0x1000;
 
     // Inicializo el objeto del decodificador de cuadratura. No uso index ni clock.
@@ -76,7 +76,7 @@ int main(void)
     // Habilito interrupciones
     __enable_irq();
 
-    // Conecto por SPI la pantalla TFT utiliznado los pines definidos previamente
+    // Conecto por SPI la pantalla TFT utilizando los pines definidos previamente
     result = SPI_st7789v_init8(&tft_pins);
     CY_ASSERT(result == CY_RSLT_SUCCESS);
 
@@ -99,7 +99,7 @@ int main(void)
         //
         // DIBUJO ETIQUETAS DE INTERFAZ
         //
-    	// Dibujo etiquetas de posicion y desplazamiento
+    	// Dibujo etiquetas de posición y desplazamiento
         GUI_DispStringAt("x:", 15, 20);
         GUI_DispDec(x, 3);
         GUI_DispString(" y:");
@@ -130,10 +130,10 @@ int main(void)
         GUI_DispDec(previah, 6);
 
 		Estos comandos comentados me sirven para visualizar por pantalla los valores que toma la primera lectura del detector de cuadratura
-		para poder entender por que siempre al encender el display se cumple que la cuenta es mayor a la previa.
+		para poder entender porque siempre al encender el display se cumple que la cuenta es mayor a la previa.
 */
 
-        // Verifico si el valor de esta ultima variable es mayor al anterior. De ser asi, ejecuto una rutina para giro en sentido horario.
+        // Verifico si el valor de esta última variable es mayor al anterior. De ser asi, ejecuto una rutina para giro en sentido horario.
         if (cuentah > previah)
         	{
         	// Dibujo un circulo con el mismo color del fondo, sobre el circulo que se muestra en pantalla para "borrarlo"
@@ -141,17 +141,17 @@ int main(void)
     		GUI_FillCircle(x, y, tc);
     		// Ahora muevo la coordenada x del punto, a pixeles hacia la izquierda.
     		x = x - a;
-    		// Si x es menor a 20 (que es el limite de la pantalla), lo vuelvo a 20 y de esta forma nunca se dibuja el circulo fuera de ese limite.
+    		// Si x es menor a 20 (que es el límite de la pantalla), lo vuelvo a 20 y de esta forma nunca se dibuja el circulo fuera de ese límite.
     		if (x < limxizquierda)
     		{
     			x = limxizquierda;
     		}
-    		// Dibujo un circulo de color nuevo sobre la nueva posicion
+    		// Dibujo un circulo de color nuevo sobre la nueva posición
     		GUI_SetColor(GUI_BLACK);
         	GUI_FillCircle(x, y, tc);
         	GUI_Delay(10);
         	}
-        	// Verifico si el valor de esta ultima variable es menor al anterior. De ser asi, ejecuto una rutina para giro en sentido antihorario.
+        	// Verifico si el valor de esta última variable es menor al anterior. De ser asi, ejecuto una rutina para giro en sentido anti horario.
 			else if (cuentah < previah)
 			{
 				// Dibujo un circulo con el mismo color del fondo, sobre el circulo que se muestra en pantalla para "borrarlo"
@@ -159,17 +159,17 @@ int main(void)
 				GUI_FillCircle(x, y, tc);
 				// Ahora muevo la coordenada x del punto, a pixeles hacia la derecha.
 				x = x + a;
-				// Si x es menor a 220 (que es el limite de la pantalla), lo vuelvo a 220 y de esta forma nunca se dibuja el circulo fuera de ese limite.
+				// Si x es menor a 220 (que es el límite de la pantalla), lo vuelvo a 220 y de esta forma nunca se dibuja el circulo fuera de ese límite.
 				if (x > limitexderecha)
 				{
 					x = limitexderecha;
 				}
-				// Dibujo un circulo de color nuevo sobre la nueva posicion
+				// Dibujo un circulo de color nuevo sobre la nueva posición
 				GUI_SetColor(GUI_BLACK);
 				GUI_FillCircle(x, y, tc);
 				GUI_Delay(10);
 			}
-			// Verifico si el valor de esta ultima variable es igual al anterior. De ser asi, ejecuto la rutina para este caso.
+			// Verifico si el valor de esta última variable es igual al anterior. De ser asi, ejecuto la rutina para este caso.
 			else
 			{
 				// no hago nada
@@ -191,10 +191,10 @@ int main(void)
         GUI_DispDec(previav, 6);
 
 		Estos comandos comentados me sirven para visualizar por pantalla los valores que toma la primera lectura del detector de cuadratura
-		para poder entender por que siempre al encender el display se cumple que la cuenta es mayor a la previa.
+		para poder entender porque siempre al encender el display se cumple que la cuenta es mayor a la previa.
 */
 
-        // Verifico si el valor de esta ultima variable es mayor al anterior. De ser asi, ejecuto una rutina para giro en sentido horario.
+        // Verifico si el valor de esta última variable es mayor al anterior. De ser asi, ejecuto una rutina para giro en sentido horario.
         if (cuentav > previav)
         	{
         	// Dibujo un circulo con el mismo color del fondo, sobre el circulo que se muestra en pantalla para "borrarlo"
@@ -202,17 +202,17 @@ int main(void)
     		GUI_FillCircle(x, y, tc);
     		// Ahora muevo la coordenada y del punto, a pixeles hacia abajo.
     		y = y - a;
-    		// Si x es menor a 50 (que es el limite de la pantalla), lo vuelvo a 50 y de esta forma nunca se dibuja el circulo fuera de ese limite.
+    		// Si x es menor a 50 (que es el límite de la pantalla), lo vuelvo a 50 y de esta forma nunca se dibuja el circulo fuera de ese límite.
     		if (y < limyarriba)
     		{
     			y = limyarriba;
     		}
-    		// Dibujo un circulo de color nuevo sobre la nueva posicion
+    		// Dibujo un circulo de color nuevo sobre la nueva posición
     		GUI_SetColor(GUI_BLACK);
         	GUI_FillCircle(x, y, tc);
         	GUI_Delay(10);
         	}
-        	// Verifico si el valor de esta ultima variable es menor al anterior. De ser asi, ejecuto una rutina para giro en sentido antihorario.
+        	// Verifico si el valor de esta última variable es menor al anterior. De ser asi, ejecuto una rutina para giro en sentido anti horario.
 			else if (cuentav < previav)
 			{
 				// Dibujo un circulo con el mismo color del fondo, sobre el circulo que se muestra en pantalla para "borrarlo"
@@ -220,12 +220,12 @@ int main(void)
 				GUI_FillCircle(x, y, tc);
 				// Ahora muevo la coordenada y del punto, a pixeles hacia arriba
 				y = y + a;
-				// Si x es menor a 220 (que es el limite de la pantalla), lo vuelvo a 220 y de esta forma nunca se dibuja el circulo fuera de ese limite.
+				// Si x es menor a 220 (que es el límite de la pantalla), lo vuelvo a 220 y de esta forma nunca se dibuja el circulo fuera de ese límite.
 				if (y > limiteyabajo)
 				{
 					y = limiteyabajo;
 				}
-				// Dibujo un circulo de color nuevo sobre la nueva posicion
+				// Dibujo un circulo de color nuevo sobre la nueva posición
 				GUI_SetColor(GUI_BLACK);
 				GUI_FillCircle(x, y, tc);
 				GUI_Delay(10);
